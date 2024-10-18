@@ -34,7 +34,7 @@ interface ModalContentItem {
 }
 
 interface ModalComponentsProps {
-  modalContents: ModalContentItem[] | null;
+  modalContents: ModalContentItem[];
   isOpen: boolean;
   close: () => void;
 }
@@ -49,7 +49,6 @@ const modificationOptions = ["일반 개조", "보석 개조", "특별 개조"];
 
 
 export default function ModalComponents({ modalContents, isOpen, close }: ModalComponentsProps) {
-
   // 성능을 조건에 따라 표시하는 함수
   const renderPerformance = (item: ModalContentItem) => {
     switch (item.option_type) {
