@@ -64,6 +64,8 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
         return `${item.option_value}${item.option_value2 ? ` (${item.option_value2})` : ''}`;
       case "에르그":
         return `${item.option_value} / ${item.option_value2}`;
+      case "인챈트 종류":
+        return <a href={`https://biketago.com/enchant/?na=${item.option_value.split(" ")[0]}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">{item.option_value}</a>
       default:
         return `${item.option_value}${item.option_value2 ? ` ~ ${item.option_value2}` : ''}`;
     }
@@ -131,6 +133,24 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     ));
   };
 
+
+  // 인챈트 이름에 링크를 추가하는 함수
+  const renderEnchantOptionWithLink = (optionValue: string, optionSubType?: string) => {
+    // 링크를 추가할 조건 (예: 인챈트의 접두/접미일 경우)
+    const baseUrl = "https://biketago.com/enchant/?na=";
+    const isEnchantPrefixOrSuffix = optionSubType === "접두" || optionSubType === "접미";
+
+    if (isEnchantPrefixOrSuffix) {
+      return (
+        <a href={`${baseUrl}${encodeURIComponent(optionValue.split(' ')[0])}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+          {optionValue} {/* 인챈트 값에 링크 추가 */}
+        </a>
+      );
+    }
+
+    return optionValue; // 인챈트가 아니면 그냥 텍스트로 출력
+  };
+
   // 인챈트를 한 카드로 묶어서 표시
   const renderEnchantOptions = (contents: ModalContentItem[]) => {
     return (
@@ -138,7 +158,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
         <h3 className="text-lg font-semibold text-gray-800 mb-2">인챈트</h3>
         {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
-            {item.option_sub_type}: {item.option_value}
+            {item.option_sub_type}: {renderEnchantOptionWithLink(item.option_value, item.option_sub_type)}
             {item.option_desc && (
               <div className="text-xs text-gray-500 italic mt-1">
                 {renderEnchantmentDescription(item.option_desc)} {/* 쉼표마다 줄바꿈 */}
@@ -245,8 +265,6 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
               modalContents.filter(item => itemColorOptions.includes(item.option_type))
             )}
 
-
-
             <div className="grid grid-cols-1 gap-2">
               {modalContents
                 .filter(item => !groupedOptions.includes(item.option_type) &&
@@ -270,15 +288,12 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
 
                     <div className="mb-1 text-sm text-gray-700">
                       {/* 성능을 조건에 맞게 출력 */}
-                      {item.option_type === "아이템 색상"
-                        ? renderColorBox(item.option_value) // 색상인 경우 색상 상자 출력
-                        : `${renderPerformance(item)}`
-                      }
+                      {renderPerformance(item)}
                     </div>
 
                     {item.option_desc && (
                       <div className="text-xs text-gray-500 italic">
-                        설명: {item.option_desc}
+                        {item.option_desc}
                       </div>
                     )}
                   </div>
