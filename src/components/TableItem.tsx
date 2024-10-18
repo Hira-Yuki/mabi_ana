@@ -1,25 +1,11 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import ModalComponents from "./ModalComponents";
+import { ItemOption, mabi_items } from "../App";
 
-interface ItemOption {
-  option_type: string;
-  option_value: string;
-  option_value2?: string;
-  option_sub_type?: string;
-  option_desc?: string;
-}
-
-interface Item {
-  item_display_name: string;
-  item_count: number;
-  auction_price_per_unit: number;
-  date_auction_expire: string;
-  item_option: ItemOption[];
-}
 
 interface TableItemProps {
-  items: Item[];   // Item 배열
+  items: mabi_items[];   // Item 배열
   now: Dayjs;      // 현재 시간 (dayjs 객체)
 }
 

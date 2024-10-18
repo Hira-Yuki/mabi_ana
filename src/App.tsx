@@ -4,13 +4,21 @@ import { SearchForm, TimeSetter, Table, TableItem, Pagination } from "./componen
 import { ITEM_PER_PAGE } from "./constants/itemsPerPage";
 import { useSort } from "./hooks";
 
+export interface ItemOption {
+  option_type: string;
+  option_value: string;
+  option_value2?: string;
+  option_sub_type?: string;
+  option_desc?: string;
+}
+
 export interface mabi_items {
   auction_price_per_unit: number;
   date_auction_expire: string;
   item_count: number;
   item_display_name: string;
   item_name: string;
-  item_option: object;
+  item_option: ItemOption[];
 }
 
 export default function App() {
