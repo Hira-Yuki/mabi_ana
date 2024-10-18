@@ -40,7 +40,7 @@ interface ModalComponentsProps {
 }
 
 // 필터링할 옵션 타입들
-const groupedOptions = ["공격", "부상률", "크리티컬", "내구력", "밸런스", "피어싱 레벨"];
+const groupedOptions = ["공격", "부상률", "크리티컬", "내구력", "밸런스", "피어싱 레벨", "숙련"];
 const reforgeOptions = ["세공 랭크", "세공 옵션"];
 const enchantOptions = ["인챈트"];
 const setOptions = ["세트 효과"];
