@@ -38,7 +38,7 @@ export default function App() {
   const indexOfFirstItem = indexOfLastItem - ITEM_PER_PAGE;
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(items.length / ITEM_PER_PAGE); // 전체 페이지 수
+  const totalPages = Math.ceil(filteredItems.length / ITEM_PER_PAGE);
   const pagesPerGroup = 10; // 한 번에 표시할 페이지 번호 수
   const totalGroups = Math.ceil(totalPages / pagesPerGroup); // 페이지 그룹 수
 
