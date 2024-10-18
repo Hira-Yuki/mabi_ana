@@ -40,7 +40,7 @@ export default function TableItem({ items, now }: TableItemProps) {
 
   return (
     <>
-      {items.map((item, index) => (
+      {items?.map((item, index) => (
         <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} >
           <td className="border border-gray-300 px-4 py-2 cursor-pointer" onClick={() => openModal(item.item_option)}>{item.item_display_name}</td>
           <td className="border border-gray-300 px-4 py-2">{item.item_count}</td>

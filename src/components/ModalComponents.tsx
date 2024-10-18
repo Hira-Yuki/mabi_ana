@@ -93,7 +93,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">아이템 성능</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
             {item.option_type}: {renderPerformance(item)}
           </div>
@@ -107,7 +107,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">세공</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
             {item.option_type === "세공 랭크"
               ? `랭크: ${item.option_value}`
@@ -120,7 +120,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
 
   // 인챈트 설명을 줄바꿈 처리하는 함수
   const renderEnchantmentDescription = (desc: string) => {
-    return desc.split(',').map((line, index) => (
+    return desc.split(',')?.map((line, index) => (
       <div key={index} className="block text-blue-600">
         {line.trim()}
       </div>
@@ -132,7 +132,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">인챈트</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
             {item.option_sub_type}: {item.option_value}
             {item.option_desc && (
@@ -151,7 +151,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">세트 효과</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
             {item.option_value} : {item.option_value2}
           </div>
@@ -165,7 +165,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">아이템 색상</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="flex items-center space-x-2 mb-1">
             <span className="text-xs text-gray-500"> {item.option_sub_type}</span>
             {renderColorBox(item.option_value)}
@@ -180,7 +180,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     return (
       <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
         <h3 className="text-lg font-semibold text-gray-800 mb-2">개조</h3>
-        {contents.map((item, index) => (
+        {contents?.map((item, index) => (
           <div key={index} className="text-sm text-gray-700 mb-1">
             {item.option_type}: {item.option_value}
             <span className="text-xs text-gray-500"> {item.option_sub_type !== null && `(${item.option_sub_type})`}</span>
@@ -252,7 +252,7 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
                   !itemColorOptions.includes(item.option_type) &&
                   !modificationOptions.includes(item.option_type)
                 )
-                .map((item, index) => (
+                ?.map((item, index) => (
                   <div
                     key={index}
                     className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm"

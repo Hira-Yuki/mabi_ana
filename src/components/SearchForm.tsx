@@ -71,7 +71,7 @@ export default function SearchForm({
             className="p-2 border border-gray-300 rounded-md"
           >
             <option value="" disabled>전체 카테고리</option>
-            {AUCTION_CATEGORY.map((category, index) => (
+            {AUCTION_CATEGORY?.map((category, index) => (
               <option key={index} value={category}>{category === "" ? "--" : category}</option>
             ))}
           </select>

@@ -27,7 +27,7 @@ export default function Pagination({
         이전
       </button>
 
-      {currentGroupPages.map((pageNumber: number) => (
+      {currentGroupPages?.map((pageNumber: number) => (
         <button
           key={pageNumber}
           onClick={() => handlePageChange(pageNumber)}
