@@ -2,12 +2,20 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
 import ModalComponents from "./ModalComponents";
 
+interface ItemOption {
+  option_type: string;
+  option_value: string;
+  option_value2?: string;
+  option_sub_type?: string;
+  option_desc?: string;
+}
+
 interface Item {
   item_display_name: string;
   item_count: number;
   auction_price_per_unit: number;
   date_auction_expire: string;
-  item_option: any;
+  item_option: ItemOption[];
 }
 
 interface TableItemProps {
@@ -17,9 +25,9 @@ interface TableItemProps {
 
 export default function TableItem({ items, now }: TableItemProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
+  const [modalContent, setModalContent] = useState<ItemOption[]>([]);
 
-  const openModal = (contents) => {
+  const openModal = (contents: ItemOption[]) => {
     setIsOpen(true)
     setModalContent(contents)
   }

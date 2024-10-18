@@ -45,6 +45,8 @@ const reforgeOptions = ["세공 랭크", "세공 옵션"];
 const enchantOptions = ["인챈트"];
 const setOptions = ["세트 효과"];
 const itemColorOptions = ["아이템 색상"];
+const modificationOptions = ["일반 개조", "보석 개조", "특별 개조"];
+
 
 export default function ModalComponents({ modalContents, isOpen, close }: ModalComponentsProps) {
 
@@ -173,6 +175,22 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     );
   }
 
+  // 개조 옵션을 한 카드로 묶어서 표시
+  const renderModificationOptions = (contents: ModalContentItem[]) => {
+    return (
+      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-3">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">개조</h3>
+        {contents.map((item, index) => (
+          <div key={index} className="text-sm text-gray-700 mb-1">
+            {item.option_type}: {item.option_value}
+            <span className="text-xs text-gray-500"> {item.option_sub_type !== null && `(${item.option_sub_type})`}</span>
+            {item.option_value2 && ` / ${item.option_value2}`}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -198,6 +216,11 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
               modalContents.filter(item => groupedOptions.includes(item.option_type))
             )}
 
+            {/* 개조 옵션을 그룹화 */}
+            {renderModificationOptions(
+              modalContents.filter(item => modificationOptions.includes(item.option_type))
+            )}
+
             {/* 인챈트 옵션 그룹화 */}
             {renderEnchantOptions(
               modalContents.filter(item => enchantOptions.includes(item.option_type))
@@ -217,6 +240,47 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
             {renderItemColorOptions(
               modalContents.filter(item => itemColorOptions.includes(item.option_type))
             )}
+
+
+
+            <div className="grid grid-cols-1 gap-2">
+              {modalContents
+                .filter(item => !groupedOptions.includes(item.option_type) &&
+                  !reforgeOptions.includes(item.option_type) &&
+                  !enchantOptions.includes(item.option_type) &&
+                  !setOptions.includes(item.option_type) &&
+                  !itemColorOptions.includes(item.option_type) &&
+                  !modificationOptions.includes(item.option_type)
+                )
+                .map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm"
+                  >
+                    <div className="mb-1 text-base font-semibold text-gray-800">
+                      {item.option_type}
+                      {item.option_sub_type && (
+                        <span className="text-xs text-gray-500"> ({item.option_sub_type})</span>
+                      )}
+                    </div>
+
+                    <div className="mb-1 text-sm text-gray-700">
+                      {/* 성능을 조건에 맞게 출력 */}
+                      {item.option_type === "아이템 색상"
+                        ? renderColorBox(item.option_value) // 색상인 경우 색상 상자 출력
+                        : `${renderPerformance(item)}`
+                      }
+                    </div>
+
+                    {item.option_desc && (
+                      <div className="text-xs text-gray-500 italic">
+                        설명: {item.option_desc}
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
+
           </div>
         ) : (
           <p className="text-center text-sm text-gray-500">데이터가 없습니다.</p>
