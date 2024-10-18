@@ -12,6 +12,7 @@ interface SearchFormProps {
   setItems: (items: mabi_items[]) => void;
   setCurrentPage: (value: number) => void;
   setPageGroup: (value: number) => void;
+  filterInput: { value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void; };
 }
 
 export default function SearchForm({
@@ -20,7 +21,8 @@ export default function SearchForm({
   sortItems,
   setItems,
   setCurrentPage,
-  setPageGroup
+  setPageGroup,
+  filterInput
 }: SearchFormProps) {
   const itemNameInput = useInput('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -96,7 +98,17 @@ export default function SearchForm({
             className="p-2 border border-gray-300 rounded-md flex-1"
           />
         </div>
-
+        {/* 필터 입력 필드 */}
+        <div className="my-4">
+          <label htmlFor="itemName" className="mr-4 font-medium">검색 필터: </label>
+          <input
+            type="text"
+            value={filterInput.value}
+            onChange={filterInput.onChange}
+            placeholder="포함된 아이템만 보기"
+            className="p-2 border border-gray-300 rounded-md"
+          />
+        </div>
         <div className="text-center">
           <button
             type="submit"
@@ -104,6 +116,7 @@ export default function SearchForm({
           >
             검색
           </button>
+
         </div>
       </div>
     </form>

@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { SearchForm, TimeSetter, Table, TableItem, Pagination } from "./components";
 import { ITEM_PER_PAGE } from "./constants/itemsPerPage";
-import { useSort } from "./hooks";
+import { useInput, useSort } from "./hooks";
 
 export interface ItemOption {
   option_type: string;
@@ -27,12 +27,16 @@ export default function App() {
   const { sortOrder, sortItems, handleSortOrderChange } = useSort(setItems);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 추가
   const [pageGroup, setPageGroup] = useState(0); // 현재 페이지 그룹 (10개씩)
+  const filterInput = useInput('');
 
+  const filteredItems = items.filter(item =>
+    item.item_display_name.includes(filterInput.value) // 필터 적용
+  );
 
   // 현재 페이지에 해당하는 아이템만 표시
   const indexOfLastItem = currentPage * ITEM_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEM_PER_PAGE;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(items.length / ITEM_PER_PAGE); // 전체 페이지 수
   const pagesPerGroup = 10; // 한 번에 표시할 페이지 번호 수
@@ -70,6 +74,7 @@ export default function App() {
         sortItems={sortItems}
         handleSortOrderChange={handleSortOrderChange}
         sortOrder={sortOrder}
+        filterInput={filterInput}
       />
 
       {items.length > 0 && (
