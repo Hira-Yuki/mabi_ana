@@ -71,7 +71,8 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
 
   // 색상 표시 함수
   const renderColorBox = (rgbValue: string) => {
-    const rgbArray = rgbValue.split(',').map(Number); // RGB 값을 배열로 변환
+    if (!rgbValue) return null;
+    const rgbArray = rgbValue.split(',')?.map(Number); // RGB 값을 배열로 변환
     const colorStyle = {
       backgroundColor: `rgb(${rgbArray.join(',')})`,
     };
@@ -122,7 +123,8 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
     if (!desc) {
       return null; // desc가 null일 경우 아무것도 반환하지 않음
     }
-    return desc.split(',').map((line, index) => (
+
+    return desc.split(',')?.map((line, index) => (
       <div key={index} className="block text-blue-600">
         {line.trim()}
       </div>
