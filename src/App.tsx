@@ -100,6 +100,11 @@ export default function App() {
           />
         </div>
       )}
+      <hr className="mt-10" />
+      <div className="text-center p-10 text-gray-600">
+        <p>Data based on NEXON Open API.</p>
+        <p>created by <a href="https://github.com/Hira-Yuki/" target="_blank" rel="noopener noreferrer" className="text-blue-600">Yukihira.</a></p>
+      </div>
     </>
   );
 }
