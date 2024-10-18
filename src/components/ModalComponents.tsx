@@ -119,7 +119,10 @@ export default function ModalComponents({ modalContents, isOpen, close }: ModalC
 
   // 인챈트 설명을 줄바꿈 처리하는 함수
   const renderEnchantmentDescription = (desc: string) => {
-    return desc.split(',')?.map((line, index) => (
+    if (!desc) {
+      return null; // desc가 null일 경우 아무것도 반환하지 않음
+    }
+    return desc.split(',').map((line, index) => (
       <div key={index} className="block text-blue-600">
         {line.trim()}
       </div>
